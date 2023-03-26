@@ -70,13 +70,14 @@
         const username = document.getElementById('username');
         const phone = document.getElementById('phone');
         const email = document.getElementById('email');
-        const submitForm = () => {
-
+        const submitForm = (e) => {
+            e.preventDefault();
+            // axios.post('')
         }
 
 
 
-        
+
         form.addEventListener('submit',submitForm);
     </script>
 </body>

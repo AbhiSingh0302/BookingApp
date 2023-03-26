@@ -1,12 +1,10 @@
 const express = require('express');
 
-const path = require('path');
+const bookingRouter = require('./routes/booking');
 
 const app = express();
 
-app.use((req,res,next)=>{
-    res.sendFile(path.join(__dirname,'views','index.html'));
-})
+app.use(bookingRouter);
 
 app.listen(3000);
 
