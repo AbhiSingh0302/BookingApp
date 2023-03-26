@@ -31,7 +31,7 @@
         <div class="container-fluid text-center mt-4">
             <div class="row justify-content-evenly">
                 <div class="col-12 col-md-4">
-                    <form action="/user" method="post" enctype="application/json" id="user-form">
+                    <form id="user-form">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-lg">User Name: </span>
                             <input type="text" id="username" name="username" class="form-control"
@@ -72,21 +72,26 @@
         const email = document.getElementById('email');
         const submitForm = (e) => {
             e.preventDefault();
-            axios.post('http://localhost:3000',form,{
+            const formData = {
+                username: username.value,
+                phone: phone.value,
+                email: email.value
+            };
+            axios.post('http://localhost:3000/', formData, {
                 header: {
                     'Content-Type': 'application/json'
                 }
             })
-            .then(data=>{
-                console.log(data);
-            })
-            .catch(err=>console.log(err));
+                .then(data => {
+                    console.log("Success");
+                })
+                .catch(err => console.log(err));
         }
 
 
 
 
-        form.addEventListener('submit',submitForm);
+        form.addEventListener('submit', submitForm);
     </script>
 </body>
 
