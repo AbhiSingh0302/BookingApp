@@ -15,7 +15,8 @@ exports.users = (req,res,next) => {
         email: userData.email,
     })
     .then(result => {
-        console.log("created: ",result);
+        console.log("created");
+        res.redirect('/');
     })
     .catch(err => console.log("There is error: ",err));
 }

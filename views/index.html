@@ -77,7 +77,7 @@
                 phone: phone.value,
                 email: email.value
             };
-            axios.post('http://localhost:3000/', formData, {
+            axios.post('/user', formData, {
                 header: {
                     'Content-Type': 'application/json'
                 }
