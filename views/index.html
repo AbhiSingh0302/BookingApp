@@ -35,19 +35,19 @@
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-lg">User Name: </span>
                             <input type="text" id="username" name="username" class="form-control"
-                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" required
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
                                 autocomplete="off">
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-lg">Phone Number: </span>
                             <input type="tel" id="phone" name="phone" class="form-control"
-                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" required
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
                                 autocomplete="off">
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-lg">Email: </span>
                             <input type="email" id="email" name="email" class="form-control"
-                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" required
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
                                 autocomplete="off">
                             <button class="btn btn-outline-secondary" type="submit" id="button-addon2"> Submit </button>
                         </div>
@@ -72,7 +72,15 @@
         const email = document.getElementById('email');
         const submitForm = (e) => {
             e.preventDefault();
-            // axios.post('')
+            axios.post('http://localhost:3000',form,{
+                header: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(data=>{
+                console.log(data);
+            })
+            .catch(err=>console.log(err));
         }
 
 
