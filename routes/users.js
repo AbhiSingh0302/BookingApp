@@ -4,6 +4,8 @@ const express = require('express');
 
 const router = express.Router();
 
-router.post('/user',booking.user);
+router.post('/users/:id',booking.userDelete);
+
+router.get('/users',booking.users);
 
 module.exports = router;

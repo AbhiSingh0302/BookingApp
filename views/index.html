@@ -70,6 +70,44 @@
         const username = document.getElementById('username');
         const phone = document.getElementById('phone');
         const email = document.getElementById('email');
+        const ul = document.querySelector('ul');
+        const dlt = (e)=>{
+            const id = e.target.parentElement.id;
+            e.target.parentElement.remove();
+            axios.post("http://localhost:3000/users/" + id)
+                .then(resp => {
+                    console.log("Success Delete")
+                })
+                .catch(err => console.log(err))
+        }
+
+        // const showUser = ()=>{
+            axios.get('http://localhost:3000/users')
+                .then(resp => {
+                    const users = resp.data;
+                    for (user of users) {
+                        let li = document.createElement('li');
+                        li.classList.add("list-group-item");
+                        li.id = user.id;
+                        li.innerHTML = user.username + " - " + user.phone + " - " + user.email + " - ";
+                        let editBtn = document.createElement('button');
+                        editBtn.innerHTML = " Edit ";
+                        let dltBtn = document.createElement('button');
+                        dltBtn.innerHTML = " Delete ";
+                        editBtn.classList.add("btn", "btn-outline-primary", "mx-1");
+                        dltBtn.classList.add("btn", "btn-outline-secondary", "mx-1");
+                        dltBtn.addEventListener('click', dlt);
+                        editBtn.addEventListener('click', (e)=>{
+                            edit(e,user);
+                        });
+                        li.appendChild(editBtn);
+                        li.appendChild(dltBtn);
+                        ul.appendChild(li);
+                    }
+                })
+                .catch(err => console.log("There is an error: ", err));
+        // }
+
         const submitForm = (e) => {
             e.preventDefault();
             const formData = {
@@ -84,13 +122,10 @@
             })
                 .then(data => {
                     console.log("Success");
+                    showUser();
                 })
                 .catch(err => console.log(err));
         }
-
-
-
-
         form.addEventListener('submit', submitForm);
     </script>
 </body>

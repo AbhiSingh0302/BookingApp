@@ -6,11 +6,14 @@ const bookingRouter = require('./routes/booking');
 
 const userRouter = require('./routes/user');
 
+const usersRouter = require('./routes/users');
+
 const sequelize = require('./utils/database');
 
 const app = express();
 
 app.use(bodyParser.json());
+app.use(usersRouter);
 app.use(userRouter);
 app.use(bookingRouter);
 

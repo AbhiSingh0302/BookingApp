@@ -6,7 +6,7 @@ exports.display = (req,res,next) => {
     res.sendFile(path.join(__dirname,'../','views','index.html'));
 }
 
-exports.users = (req,res,next) => {
+exports.user = (req,res,next) => {
     const userData = req.body;
     console.log(userData);
     Users.create({
@@ -19,4 +19,27 @@ exports.users = (req,res,next) => {
         res.redirect('/');
     })
     .catch(err => console.log("There is error: ",err));
+}
+
+exports.users = (req,res,next)=>{
+    Users.findAll()
+    .then(results=>{
+        console.log("Success");
+        res.send(results);
+    })
+    .catch(err=>console.log("There is error: ",err));
+}
+
+exports.userDelete = (req,res,next)=>{
+    console.log(req.params);
+    const id = req.params.id;
+    const edit = req.query.edit;
+    console.log(id,edit);
+    if(!edit){
+        Users.destroy({
+            where:{
+                id: id
+            }
+        })  
+    }
 }
