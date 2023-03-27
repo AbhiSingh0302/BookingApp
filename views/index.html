@@ -71,57 +71,82 @@
         const phone = document.getElementById('phone');
         const email = document.getElementById('email');
         const ul = document.querySelector('ul');
-        const dlt = (e)=>{
+
+        const edit = (e,user) => {
+            const id = e.target.parentElement.id;
+            e.target.parentElement.remove();
+            username.value = user.username;
+            phone.value = user.phone;
+            email.value = user.email;
+            axios.post("http://localhost:3000/users/" + id)
+                .then(resp => {
+                    console.log("Success Delete");
+                })
+                .catch(err => console.log(err))
+                .finally(()=>console.log("finally"))
+        }
+
+        const dlt = (e) => {
             const id = e.target.parentElement.id;
             e.target.parentElement.remove();
             axios.post("http://localhost:3000/users/" + id)
                 .then(resp => {
-                    console.log("Success Delete")
+                    console.log("Success Delete");
                 })
                 .catch(err => console.log(err))
+                .finally(()=>console.log("finally"))
         }
 
         // const showUser = ()=>{
-            axios.get('http://localhost:3000/users')
-                .then(resp => {
-                    const users = resp.data;
-                    for (user of users) {
-                        let li = document.createElement('li');
-                        li.classList.add("list-group-item");
-                        li.id = user.id;
-                        li.innerHTML = user.username + " - " + user.phone + " - " + user.email + " - ";
-                        let editBtn = document.createElement('button');
-                        editBtn.innerHTML = " Edit ";
-                        let dltBtn = document.createElement('button');
-                        dltBtn.innerHTML = " Delete ";
-                        editBtn.classList.add("btn", "btn-outline-primary", "mx-1");
-                        dltBtn.classList.add("btn", "btn-outline-secondary", "mx-1");
-                        dltBtn.addEventListener('click', dlt);
-                        editBtn.addEventListener('click', (e)=>{
-                            edit(e,user);
-                        });
-                        li.appendChild(editBtn);
-                        li.appendChild(dltBtn);
-                        ul.appendChild(li);
-                    }
-                })
-                .catch(err => console.log("There is an error: ", err));
+        axios.get('http://localhost:3000/users')
+            .then(resp => {
+                const users = resp.data;
+                for (user of users) {
+                    let li = document.createElement('li');
+                    li.classList.add("list-group-item");
+                    li.id = user.id;
+                    li.innerHTML = user.username + " - " + user.phone + " - " + user.email + " - ";
+                    let editBtn = document.createElement('button');
+                    editBtn.innerHTML = " Edit ";
+                    let dltBtn = document.createElement('button');
+                    dltBtn.innerHTML = " Delete ";
+                    editBtn.classList.add("btn", "btn-outline-primary", "mx-1");
+                    dltBtn.classList.add("btn", "btn-outline-secondary", "mx-1");
+                    dltBtn.addEventListener('click', dlt);
+                    editBtn.addEventListener('click', (e) => {
+                        edit(e, user);
+                    });
+                    li.appendChild(editBtn);
+                    li.appendChild(dltBtn);
+                    ul.appendChild(li);
+                }
+            })
+            .catch(err => console.log("There is an error: ", err));
         // }
 
-        const submitForm = (e) => {
+        const submitForm = (e,edit="false") => {
             e.preventDefault();
             const formData = {
                 username: username.value,
                 phone: phone.value,
                 email: email.value
             };
+            let url;
+            if(edit){
+                url='/edit';
+            }else{
+                url='/user';
+            }
             axios.post('/user', formData, {
                 header: {
                     'Content-Type': 'application/json'
                 }
             })
                 .then(data => {
-                    console.log("Success");
+                    console.log("Success!!!");
+                    for (let formEl of form) {
+                        formEl.value = "";
+                    }
                     showUser();
                 })
                 .catch(err => console.log(err));

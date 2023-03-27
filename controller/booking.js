@@ -35,11 +35,9 @@ exports.userDelete = (req,res,next)=>{
     const id = req.params.id;
     const edit = req.query.edit;
     console.log(id,edit);
-    if(!edit){
         Users.destroy({
             where:{
                 id: id
             }
         })  
-    }
 }
