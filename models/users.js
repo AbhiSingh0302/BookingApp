@@ -14,7 +14,7 @@ const users = sequelize.define('user',{
         allowNull: false
     },
     phone: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.DataTypes.STRING,
         allowNull: false
     },
     email: {
@@ -22,8 +22,6 @@ const users = sequelize.define('user',{
         allowNull: false,
         unique: true
     }
-},{
-    timestamps: false
 })
 
 module.exports = users;

@@ -18,7 +18,11 @@ exports.user = (req,res,next) => {
         console.log("created");
         res.redirect('/');
     })
-    .catch(err => console.log("There is error: ",err));
+    .catch(err => {
+        res.status(404).json({
+            error: err
+        })
+    });
 }
 
 exports.users = (req,res,next)=>{
